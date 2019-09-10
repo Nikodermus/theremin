@@ -1,15 +1,13 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react'
+import { render } from 'react-dom'
 
-import Example from '../../src'
+import Theremin from '../../src'
 
-class Demo extends Component {
-  render() {
-    return <div>
-      <h1>theremin Demo</h1>
-      <Example/>
-    </div>
-  }
+const Demo = () => {
+  return (<Theremin />);
 }
 
-render(<Demo/>, document.querySelector('#demo'))
+export default Demo;
+
+render(<Demo />, document.querySelector('#demo'))

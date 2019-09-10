@@ -1,0 +1,12 @@
+{
+    "extends": ["@vividseats/eslint-config-vividseats"],
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "plugins": ["react", "jsx-a11y", "import"],
+    "rules": {
+        "no-underscore-dangle": "error"
+    }
+}

@@ -1,38 +1,47 @@
 {
-  "name": "theremin",
-  "version": "1.0.0",
-  "description": "theremin React component",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
-  ],
-  "scripts": {
-    "build": "nwb build-react-component",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
-    "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
-  },
-  "dependencies": {},
-  "peerDependencies": {
-    "react": "16.x"
-  },
-  "devDependencies": {
-    "nwb": "0.23.x",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
-  },
-  "author": "",
-  "homepage": "",
-  "license": "MIT",
-  "repository": "",
-  "keywords": [
-    "react-component"
-  ]
+    "name": "theremin",
+    "version": "1.0.0",
+    "description": "theremin React component",
+    "main": "lib/index.js",
+    "module": "es/index.js",
+    "files": [
+        "css",
+        "es",
+        "lib",
+        "umd"
+    ],
+    "scripts": {
+        "build": "nwb build-react-component",
+        "clean": "nwb clean-module && nwb clean-demo",
+        "prepublishOnly": "npm run build",
+        "start": "nwb serve-react-demo",
+        "test": "nwb test-react",
+        "test:coverage": "nwb test-react --coverage",
+        "test:watch": "nwb test-react --server"
+    },
+    "peerDependencies": {
+        "react": "16.x"
+    },
+    "devDependencies": {
+        "@vividseats/eslint-config-vividseats": "^1.0.0",
+        "babel-eslint": "^10.0.3",
+        "eslint-config-airbnb": "17.1.1",
+        "eslint-loader": "^3.0.0",
+        "eslint-plugin-import": "^2.18.0",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.14.2",
+        "eslint": "5.3.0",
+        "nwb": "0.23.x"
+    },
+    "author": "",
+    "homepage": "",
+    "license": "MIT",
+    "repository": "",
+    "keywords": [
+        "react-component"
+    ],
+    "dependencies": {
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0"
+    }
 }
