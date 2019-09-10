@@ -1,5 +1,8 @@
 {
-    "extends": ["@vividseats/eslint-config-vividseats"],
+    "extends": [
+        "@vividseats/eslint-config-vividseats",
+        "plugin:prettier/recommended"
+    ],
     "env": {
         "browser": true,
         "es6": true,

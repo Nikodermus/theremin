@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react'
-import { render } from 'react-dom'
+import { render } from 'react-dom';
+import React from 'react';
 
-import Theremin from '../../src'
+import Theremin from '../../src';
+import './index.styl';
 
 const Demo = () => {
-  return (<Theremin />);
-}
+    return <Theremin className="my-theremin" />;
+};
 
-export default Demo;
-
-render(<Demo />, document.querySelector('#demo'))
+render(<Demo />, document.querySelector('#demo'));

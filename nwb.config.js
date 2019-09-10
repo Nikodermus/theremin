@@ -30,7 +30,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
-                    presets: ['react'],
+                    presets: ['react', 'stage-2'],
                 },
                 test: /\.jsx?$/,
             });
