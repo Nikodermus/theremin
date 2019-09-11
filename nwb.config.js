@@ -39,7 +39,6 @@ module.exports = {
         },
     },
     devServer: {
-        hotOnly: true,
         inline: true,
         hot: true,
     },

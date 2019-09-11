@@ -1,14 +1,40 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect } from 'react';
 
-import { ThereminContext } from './Theremin';
+const Note = ({ removeNote, modifier, color, audio, volume }) => {
+    useEffect(() => {
+        // component did mount like
+        const newOscillator = audio.createOscillator();
+        newOscillator.frequency.value = 440 * modifier;
+        newOscillator.connect(volume);
+        newOscillator.start();
 
-const Note = ({
+        // component will unmount like
+        return () => {
+            newOscillator.disconnect(volume);
+        };
+    }, []);
 
-}) => {
-    const state = useContext(ThereminContext);
+    return (
+        <div>
+            <p>
+                {modifier} {color}
+            </p>
+            <button type="button" onClick={() => removeNote(modifier)}>
+                -
+            </button>
+        </div>
+    );
+};
 
-    return null
-}
+Note.propTypes = {
+    audio: PropTypes.instanceOf(
+        window.AudioContext || window.webkitAudioContext
+    ).isRequired,
+    color: PropTypes.string.isRequired,
+    modifier: PropTypes.number.isRequired,
+    removeNote: PropTypes.func.isRequired,
+    volume: PropTypes.instanceOf(GainNode).isRequired,
+};
 
 export default Note;
