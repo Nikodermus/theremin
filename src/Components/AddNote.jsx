@@ -9,36 +9,40 @@ const AddNote = ({ addNote, notes }) => {
 
     const changeNote = ({ target }) => {
         const { value, name } = target;
-        setNote({ [name]: value });
+        setNote((prevState) => ({ ...prevState, [name]: value }));
     };
 
     const { modifier, color } = note;
     const disabled = notes.some(
-        (activeNote) => activeNote.modifier === modifier
+        (activeNote) => activeNote.modifier === Number(modifier)
     );
 
     return (
         <Fragment>
             <label htmlFor="modifier">Modifier</label>
             <input
-                onChange={changeNote}
-                type="text"
+                id="cowbell"
+                max="1.5"
+                min="0.5"
                 name="modifier"
-                value={modifier}
+                onChange={changeNote}
                 placeholder="modifier"
+                step="0.1"
+                type="range"
+                value={modifier}
             />
             <label htmlFor="color">Color</label>
             <input
-                onChange={changeNote}
-                type="text"
                 name="color"
-                value={color}
+                onChange={changeNote}
                 placeholder="color"
+                type="text"
+                value={color}
             />
             <button
-                type="button"
-                onClick={() => addNote(note)}
                 disabled={disabled}
+                onClick={() => addNote(note)}
+                type="button"
             >
                 Add
             </button>
@@ -50,8 +54,8 @@ AddNote.propTypes = {
     addNote: PropTypes.func.isRequired,
     notes: PropTypes.arrayOf(
         PropTypes.shape({
-            modifier: PropTypes.number,
             color: PropTypes.string.isRequired,
+            modifier: PropTypes.number,
         })
     ),
 };

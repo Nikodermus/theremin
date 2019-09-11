@@ -1,8 +1,10 @@
 export const initialState = {
+    audio: null,
     notes: [],
     playing: false,
-    audio: null,
+    toneModifier: 1,
     volume: null,
+    volumeModifier: 1,
 };
 
 export const reducer = (state, newState) => ({

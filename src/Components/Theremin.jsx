@@ -14,6 +14,7 @@ const Theremin = ({ className, ...rest }) => {
         const AudioApi = window.AudioContext || window.webkitAudioContext;
         const audio = new AudioApi();
         const volume = audio.createGain();
+
         setState({ audio, volume });
     }, []);
 
@@ -29,8 +30,35 @@ const Theremin = ({ className, ...rest }) => {
         }
     }, [state.playing]);
 
+    useEffect(() => {
+        const { volume, volumeModifier } = state;
+
+        if (!volume) return;
+
+        volume.gain.value = 0.5 * volumeModifier;
+    }, [state.volumeModifier]);
+
     const onMouseMove = ({ pageX, pageY }) => {
-        console.log(pageX, pageY, state.playing);
+        const {
+            offsetHeight,
+            offsetLeft,
+            offsetTop,
+            offsetWidth,
+        } = thRef.current;
+
+        const xInBox = pageX - offsetLeft;
+        const yInBox = pageY - offsetTop;
+
+        const xFromCenter = xInBox - offsetWidth / 2;
+        const yFromCenter = yInBox - offsetHeight / 2;
+
+        const toneModifier = 1 + xFromCenter / offsetWidth;
+        const volumeModifier = 1 + yFromCenter / offsetHeight;
+
+        setState({
+            toneModifier,
+            volumeModifier,
+        });
     };
 
     const addNote = ({ modifier, color }) => {
@@ -38,8 +66,8 @@ const Theremin = ({ className, ...rest }) => {
             notes: [
                 ...state.notes,
                 {
-                    modifier,
                     color,
+                    modifier: Number(modifier),
                 },
             ],
         });
@@ -47,6 +75,7 @@ const Theremin = ({ className, ...rest }) => {
 
     const removeNote = (modifier) => {
         const { notes } = state;
+
         setState({
             notes: notes.filter((note) => note.modifier !== modifier),
         });
@@ -59,10 +88,10 @@ const Theremin = ({ className, ...rest }) => {
             <div
                 {...rest}
                 className={`${className} _th-theremin`}
-                ref={thRef}
-                onMouseMove={onMouseMove}
                 onMouseEnter={() => setState({ playing: true })}
                 onMouseLeave={() => setState({ playing: false })}
+                onMouseMove={onMouseMove}
+                ref={thRef}
             />
 
             <AddNote addNote={addNote} notes={notes} />
@@ -70,10 +99,10 @@ const Theremin = ({ className, ...rest }) => {
             {notes.map((note) => (
                 <Note
                     {...note}
-                    key={note.modifier}
-                    removeNote={removeNote}
                     audio={audio}
+                    key={note.modifier}
                     playing={playing}
+                    removeNote={removeNote}
                     volume={volume}
                 />
             ))}
