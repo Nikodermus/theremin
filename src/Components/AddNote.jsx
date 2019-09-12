@@ -1,15 +1,20 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import { BlockPicker } from 'react-color';
 
 const AddNote = ({ addNote, notes }) => {
     const [note, setNote] = useState({
-        modifier: 1,
+        modifier: 0,
         color: '#fff',
     });
 
     const changeNote = ({ target }) => {
         const { value, name } = target;
         setNote((prevState) => ({ ...prevState, [name]: value }));
+    };
+
+    const changeColor = ({ hex }) => {
+        setNote((prevState) => ({ ...prevState, color: hex }));
     };
 
     const { modifier, color } = note;
@@ -22,8 +27,8 @@ const AddNote = ({ addNote, notes }) => {
             <label htmlFor="modifier">Modifier</label>
             <input
                 id="cowbell"
-                max="1.5"
-                min="0.5"
+                max="0.5"
+                min="-0.5"
                 name="modifier"
                 onChange={changeNote}
                 placeholder="modifier"
@@ -32,13 +37,7 @@ const AddNote = ({ addNote, notes }) => {
                 value={modifier}
             />
             <label htmlFor="color">Color</label>
-            <input
-                name="color"
-                onChange={changeNote}
-                placeholder="color"
-                type="text"
-                value={color}
-            />
+            <BlockPicker onChangeComplete={changeColor} color={color} />
             <button
                 disabled={disabled}
                 onClick={() => addNote(note)}

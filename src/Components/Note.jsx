@@ -1,19 +1,32 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Note = ({ removeNote, modifier, color, audio, volume }) => {
+const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
+    const [oscillator, setOscillator] = useState(null);
+
     useEffect(() => {
         // component did mount like
         const newOscillator = audio.createOscillator();
-        newOscillator.frequency.value = 440 * modifier;
+        newOscillator.frequency.value = 440 * toneModifier;
         newOscillator.connect(volume);
         newOscillator.start();
+
+        setOscillator(newOscillator);
 
         // component will unmount like
         return () => {
             newOscillator.disconnect(volume);
         };
     }, []);
+
+    useEffect(() => {
+        if (!oscillator) return;
+
+        oscillator.frequency.setValueAtTime(
+            600 * toneModifier + modifier,
+            audio.currentTime
+        );
+    }, [toneModifier]);
 
     return (
         <div>

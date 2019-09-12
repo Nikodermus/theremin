@@ -81,7 +81,7 @@ const Theremin = ({ className, ...rest }) => {
         });
     };
 
-    const { notes, audio, playing, volume } = state;
+    const { notes, audio, playing, volume, toneModifier } = state;
 
     return (
         <Fragment>
@@ -104,6 +104,7 @@ const Theremin = ({ className, ...rest }) => {
                     playing={playing}
                     removeNote={removeNote}
                     volume={volume}
+                    toneModifier={toneModifier}
                 />
             ))}
         </Fragment>
