@@ -5,6 +5,7 @@ import '../styles/Theremin.styl';
 import { reducer, initialState } from '../utils/state';
 import Note from './Note';
 import AddNote from './AddNote';
+import PitchVisualizer from './PitchVisualizer';
 
 const Theremin = ({ className, ...rest }) => {
     const thRef = useRef(null);
@@ -85,14 +86,19 @@ const Theremin = ({ className, ...rest }) => {
 
     return (
         <Fragment>
-            <div
-                {...rest}
-                className={`${className} _th-theremin`}
-                onMouseEnter={() => setState({ playing: true })}
-                onMouseLeave={() => setState({ playing: false })}
-                onMouseMove={onMouseMove}
-                ref={thRef}
-            />
+            <PitchVisualizer tones={28} />
+
+            <div className="_th-board">
+                <span className="_th-volume" />
+                <div
+                    {...rest}
+                    className={`${className} _th-theremin`}
+                    onMouseEnter={() => setState({ playing: true })}
+                    onMouseLeave={() => setState({ playing: false })}
+                    onMouseMove={onMouseMove}
+                    ref={thRef}
+                />
+            </div>
 
             <AddNote addNote={addNote} notes={notes} />
 

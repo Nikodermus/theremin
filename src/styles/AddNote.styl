@@ -1,0 +1,64 @@
+._color-picker
+    position: relative
+
+    &__swatch
+        width: 40px
+        height: 40px
+        display: block
+        border-radius: 50%
+        box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
+
+    &__picker
+        position: absolute
+        bottom: 0
+        right: 0
+
+._add-note
+    display: flex
+    align-items: center
+    justify-content: space-around
+
+    &__add
+        width: 40px
+        height: 40px
+        box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
+        background-color: #75ffff
+        border-radius: 50%
+        border: 0
+        outline: 0
+        color: #39adac
+
+        &:hover
+            cursor: pointer
+            box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.11)
+
+    &__modifier
+        -webkit-appearance: none
+        height: 40px
+        margin: 10px 0
+        background: transparent
+
+        &:focus
+        &::-moz-focus-outer
+            outline: none
+            border: 0
+
+        &::-webkit-slider-runnable-track
+        &::-moz-range-track
+            width: 100%
+            height: 10px
+            cursor: pointer
+            animate: 0.2s
+            box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
+            background: #75ffff
+            border-radius: 10px
+
+        &::-webkit-slider-thumb
+        &::-moz-range-thumb
+            height: 30px
+            width: 30px
+            border-radius: 50%
+            box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.09)
+            background: #FFFFFF
+            cursor: pointer
+            border: 0

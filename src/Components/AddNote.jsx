@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { BlockPicker } from 'react-color';
+import { GithubPicker } from 'react-color';
+
+import '../styles/AddNote.styl';
 
 const AddNote = ({ addNote, notes }) => {
     const [note, setNote] = useState({
@@ -23,8 +25,7 @@ const AddNote = ({ addNote, notes }) => {
     );
 
     return (
-        <Fragment>
-            <label htmlFor="modifier">Modifier</label>
+        <div className="_add-note">
             <input
                 id="cowbell"
                 max="0.5"
@@ -35,17 +36,29 @@ const AddNote = ({ addNote, notes }) => {
                 step="0.1"
                 type="range"
                 value={modifier}
+                className="_add-note__modifier"
             />
-            <label htmlFor="color">Color</label>
-            <BlockPicker onChangeComplete={changeColor} color={color} />
+            <div className="_color-picker">
+                <span
+                    className="_color-picker__swatch"
+                    style={{ background: color }}
+                />
+                <GithubPicker
+                    onChangeComplete={changeColor}
+                    color={color}
+                    className="_color-picker__sample"
+                />
+            </div>
+
             <button
+                className="_add-note__add"
                 disabled={disabled}
                 onClick={() => addNote(note)}
                 type="button"
             >
-                Add
+                +
             </button>
-        </Fragment>
+        </div>
     );
 };
 
