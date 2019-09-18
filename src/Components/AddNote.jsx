@@ -7,7 +7,7 @@ import '../styles/AddNote.styl';
 const AddNote = ({ addNote, notes }) => {
     const [note, setNote] = useState({
         modifier: 0,
-        color: '#fff',
+        color: '#1273DE',
     });
 
     const changeNote = ({ target }) => {
@@ -43,11 +43,28 @@ const AddNote = ({ addNote, notes }) => {
                     className="_color-picker__swatch"
                     style={{ background: color }}
                 />
-                <GithubPicker
-                    onChangeComplete={changeColor}
-                    color={color}
-                    className="_color-picker__sample"
-                />
+                <div className="_color-picker__sample">
+                    <GithubPicker
+                        onChangeComplete={changeColor}
+                        color={color}
+                        colors={[
+                            '#B80000',
+                            '#DB3E00',
+                            '#FCCB00',
+                            '#008B02',
+                            '#006B76',
+                            '#1273DE',
+                            '#004DCF',
+                            '#5300EB',
+                            '#EB9694',
+                            '#FAD0C3',
+                            '#FEF3BD',
+                            '#C1E1C5',
+                            '#BEDADC',
+                            '#C4DEF6',
+                        ]}
+                    />
+                </div>
             </div>
 
             <button
