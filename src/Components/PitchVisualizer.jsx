@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import '../styles/PitchVisualizer.styl';
 
 const PitchVisualizer = ({ tones }) => {

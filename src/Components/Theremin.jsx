@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useReducer, Fragment } from 'react';
 
-import '../styles/Theremin.styl';
 import { reducer, initialState } from '../utils/state';
-import Note from './Note';
 import AddNote from './AddNote';
+import Note from './Note';
 import PitchVisualizer from './PitchVisualizer';
+
+import '../styles/Theremin.styl';
 
 const Theremin = ({ className, ...rest }) => {
     const thRef = useRef(null);
@@ -102,17 +103,19 @@ const Theremin = ({ className, ...rest }) => {
 
             <AddNote addNote={addNote} notes={notes} />
 
-            {notes.map((note) => (
-                <Note
-                    {...note}
-                    audio={audio}
-                    key={note.modifier}
-                    playing={playing}
-                    removeNote={removeNote}
-                    volume={volume}
-                    toneModifier={toneModifier}
-                />
-            ))}
+            <div className="_note__wrapper">
+                {notes.map((note) => (
+                    <Note
+                        {...note}
+                        audio={audio}
+                        key={note.modifier}
+                        playing={playing}
+                        removeNote={removeNote}
+                        toneModifier={toneModifier}
+                        volume={volume}
+                    />
+                ))}
+            </div>
         </Fragment>
     );
 };

@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
 import { GithubPicker } from 'react-color';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
 
 import '../styles/AddNote.styl';
 
 const AddNote = ({ addNote, notes }) => {
     const [note, setNote] = useState({
+        color: '#75ffff',
         modifier: 0,
-        color: '#1273DE',
     });
 
     const changeNote = ({ target }) => {
@@ -26,7 +26,17 @@ const AddNote = ({ addNote, notes }) => {
 
     return (
         <div className="_add-note">
+            <button
+                className="_add-note__add"
+                disabled={disabled}
+                onClick={() => addNote(note)}
+                type="button"
+            >
+                +
+            </button>
+
             <input
+                className="_add-note__modifier"
                 id="cowbell"
                 max="0.5"
                 min="-0.5"
@@ -36,7 +46,6 @@ const AddNote = ({ addNote, notes }) => {
                 step="0.1"
                 type="range"
                 value={modifier}
-                className="_add-note__modifier"
             />
             <div className="_color-picker">
                 <span
@@ -45,36 +54,27 @@ const AddNote = ({ addNote, notes }) => {
                 />
                 <div className="_color-picker__sample">
                     <GithubPicker
-                        onChangeComplete={changeColor}
                         color={color}
+                        onChangeComplete={changeColor}
                         colors={[
-                            '#B80000',
-                            '#DB3E00',
-                            '#FCCB00',
-                            '#008B02',
-                            '#006B76',
-                            '#1273DE',
-                            '#004DCF',
-                            '#5300EB',
-                            '#EB9694',
-                            '#FAD0C3',
-                            '#FEF3BD',
-                            '#C1E1C5',
-                            '#BEDADC',
-                            '#C4DEF6',
+                            '#004dcf',
+                            '#006b76',
+                            '#008b02',
+                            '#5300eb',
+                            '#75ffff',
+                            '#b80000',
+                            '#bedadc',
+                            '#c1e1c5',
+                            '#c4def6',
+                            '#db3e00',
+                            '#eb9694',
+                            '#fad0c3',
+                            '#fccb00',
+                            '#fef3bd',
                         ]}
                     />
                 </div>
             </div>
-
-            <button
-                className="_add-note__add"
-                disabled={disabled}
-                onClick={() => addNote(note)}
-                type="button"
-            >
-                +
-            </button>
         </div>
     );
 };

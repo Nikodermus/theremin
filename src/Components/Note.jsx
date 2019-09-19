@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import '../styles/Note.styl';
+
 const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
     const [oscillator, setOscillator] = useState(null);
 
@@ -29,12 +31,16 @@ const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
     }, [toneModifier]);
 
     return (
-        <div>
-            <p>
-                {modifier} {color}
-            </p>
-            <button type="button" onClick={() => removeNote(modifier)}>
-                -
+        <div className="_note">
+            <span style={{ color }} className="_note__tone">
+                ♬
+            </span>
+            <button
+                className="_note__remove"
+                onClick={() => removeNote(modifier)}
+                type="button"
+            >
+                +
             </button>
         </div>
     );

@@ -1,17 +1,17 @@
 ._pitch-visualizer
+    align-items: flex-end
     display: flex
     justify-content: space-around
-    align-items: flex-end
     margin-bottom: 0.5rem
 
     &__tone
-        border-radius: 5px
+        background-color: #75ffff
         border-bottom-left-radius: 3px
         border-bottom-right-radius: 3px
+        border-radius: 5px
+        box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
         display: block
         width: 7px
-        box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
-        background-color: #75ffff
 
         for num in 1...50
             &:nth-child({num})
