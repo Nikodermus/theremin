@@ -1,21 +1,23 @@
+@import "./_common.styl"
+
 ._pitch-visualizer
     align-items: flex-end
     display: flex
     justify-content: space-around
-    margin-bottom: 0.5rem
+    margin-bottom: sizing-SM
 
     &__tone
-        background-color: #fff
-        border-bottom-left-radius: 3px
-        border-bottom-right-radius: 3px
-        border-radius: 5px
-        box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.11)
+        background-color: white
+        border-bottom-left-radius: border-radius-SM
+        border-bottom-right-radius: border-radius-SM
+        border-radius: border-radius-MD
+        box-shadow: inner-shadow
         display: block
-        width: 7px
+        width: sizing-SM
 
         &--active
-            background-color: #75ffff
+            background-color: blue
 
         for num in 1...50
             &:nth-child({num})
-                height: (10 + num)px
+                height: rem(10 + num)
