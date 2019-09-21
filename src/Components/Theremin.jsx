@@ -21,9 +21,9 @@ const Theremin = ({ className, ...rest }) => {
     }, []);
 
     useEffect(() => {
-        const { volume, audio, playing } = state;
+        const { volume, audio, playing, notes } = state;
 
-        if (!volume || !audio) return;
+        if (!volume || !audio || !notes.length) return;
 
         if (playing) {
             volume.connect(audio.destination);
@@ -83,18 +83,41 @@ const Theremin = ({ className, ...rest }) => {
         });
     };
 
-    const { notes, audio, playing, volume, toneModifier } = state;
+    const {
+        audio,
+        notes,
+        playing,
+        toneModifier,
+        volume,
+        volumeModifier,
+    } = state;
+
+    const volumePercent = playing
+        ? Math.max(Math.floor((volumeModifier - 1.23) * 100), 0)
+        : 0;
 
     return (
         <Fragment>
-            <PitchVisualizer tones={28} />
+            <PitchVisualizer
+                playing={playing}
+                toneModifier={toneModifier}
+                tones={28}
+            />
 
             <div className="_th-board">
-                <span className="_th-volume" />
+                <span
+                    className="_th-volume"
+                    style={{
+                        backgroundImage: `linear-gradient(to bottom,#74ffff ${volumePercent}%, #fff ${volumePercent +
+                            10}%)`,
+                    }}
+                />
                 <div
                     {...rest}
                     className={`${className} _th-theremin`}
-                    onMouseEnter={() => setState({ playing: true })}
+                    onMouseEnter={() =>
+                        setState({ playing: true && notes.length })
+                    }
                     onMouseLeave={() => setState({ playing: false })}
                     onMouseMove={onMouseMove}
                     ref={thRef}
