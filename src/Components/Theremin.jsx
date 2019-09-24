@@ -1,14 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useReducer, Fragment } from 'react';
 
-import { reducer, initialState } from '../utils/state';
+import { reducer, initialState, setInRange } from '../utils/state';
 import AddNote from './AddNote';
 import Note from './Note';
 import PitchVisualizer from './PitchVisualizer';
 
 import '../styles/Theremin.styl';
 
-const Theremin = ({ className, ...rest }) => {
+const Theremin = ({
+    className,
+    withPitch,
+    withVolume,
+    withAdd,
+    withNotes,
+    notes: notesProps,
+    ...rest
+}) => {
     const thRef = useRef(null);
     const [state, setState] = useReducer(reducer, initialState);
 
@@ -21,7 +29,8 @@ const Theremin = ({ className, ...rest }) => {
     }, []);
 
     useEffect(() => {
-        const { volume, audio, playing, notes } = state;
+        const { volume, audio, playing, notesInner } = state;
+        const notes = notesProps || notesInner;
 
         if (!volume || !audio || !notes.length) return;
 
@@ -65,8 +74,8 @@ const Theremin = ({ className, ...rest }) => {
 
     const addNote = ({ modifier, color }) => {
         setState({
-            notes: [
-                ...state.notes,
+            notesInner: [
+                ...state.notesInner,
                 {
                     color,
                     modifier: Number(modifier),
@@ -76,16 +85,16 @@ const Theremin = ({ className, ...rest }) => {
     };
 
     const removeNote = (modifier) => {
-        const { notes } = state;
+        const { notesInner } = state;
 
         setState({
-            notes: notes.filter((note) => note.modifier !== modifier),
+            notesInner: notesInner.filter((note) => note.modifier !== modifier),
         });
     };
 
     const {
         audio,
-        notes,
+        notesInner,
         playing,
         toneModifier,
         volume,
@@ -93,25 +102,32 @@ const Theremin = ({ className, ...rest }) => {
     } = state;
 
     const volumePercent = playing
-        ? Math.max(Math.floor((volumeModifier - 1.23) * 100), 0)
+        ? setInRange((volumeModifier - 1.5) * 100)
         : 0;
+
+    const notes = notesProps || notesInner;
 
     return (
         <Fragment>
-            <PitchVisualizer
-                playing={playing}
-                toneModifier={toneModifier}
-                tones={28}
-            />
+            {withPitch && (
+                <PitchVisualizer
+                    playing={playing}
+                    toneModifier={toneModifier}
+                    tones={28}
+                />
+            )}
 
             <div className="_th-board">
-                <span
-                    className="_th-volume"
-                    style={{
-                        backgroundImage: `linear-gradient(to bottom,#74ffff ${volumePercent}%, #fff ${volumePercent +
-                            10}%)`,
-                    }}
-                />
+                {withVolume && (
+                    <span
+                        className="_th-volume"
+                        style={{
+                            backgroundImage: `linear-gradient(to bottom,#74ffff ${volumePercent}%, #fff ${volumePercent +
+                                10}%)`,
+                        }}
+                    />
+                )}
+
                 <div
                     {...rest}
                     className={`${className} _th-theremin`}
@@ -123,10 +139,9 @@ const Theremin = ({ className, ...rest }) => {
                     ref={thRef}
                 />
             </div>
+            {withAdd && <AddNote addNote={addNote} notes={notes} />}
 
-            <AddNote addNote={addNote} notes={notes} />
-
-            <div className="_note__wrapper">
+            <div className="_note__wrapper" hidden={withNotes || undefined}>
                 {notes.map((note) => (
                     <Note
                         {...note}
@@ -136,6 +151,7 @@ const Theremin = ({ className, ...rest }) => {
                         removeNote={removeNote}
                         toneModifier={toneModifier}
                         volume={volume}
+                        withNotes={withNotes}
                     />
                 ))}
             </div>
@@ -145,10 +161,25 @@ const Theremin = ({ className, ...rest }) => {
 
 Theremin.propTypes = {
     className: PropTypes.string,
+    withPitch: PropTypes.bool,
+    withVolume: PropTypes.bool,
+    withAdd: PropTypes.bool,
+    withNotes: PropTypes.bool,
+    notes: PropTypes.arrayOf(
+        PropTypes.shape({
+            modifier: PropTypes.number.isRequired,
+            color: PropTypes.string,
+        })
+    ),
 };
 
 Theremin.defaultProps = {
     className: '',
+    withPitch: true,
+    withVolume: true,
+    withAdd: true,
+    withNotes: true,
+    notes: null,
 };
 
 export default Theremin;

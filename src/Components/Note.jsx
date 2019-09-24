@@ -3,11 +3,21 @@ import React, { useEffect, useState } from 'react';
 
 import '../styles/Note.styl';
 
-const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
+const Note = ({
+    removeNote,
+    modifier,
+    color,
+    audio,
+    volume,
+    toneModifier,
+    withNotes,
+}) => {
     const [oscillator, setOscillator] = useState(null);
 
     useEffect(() => {
         // component did mount like
+        if (!audio || !volume) return;
+
         const newOscillator = audio.createOscillator();
         newOscillator.frequency.value = 440 * toneModifier;
         newOscillator.connect(volume);
@@ -19,7 +29,7 @@ const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
         return () => {
             newOscillator.disconnect(volume);
         };
-    }, []);
+    }, [audio, volume]);
 
     useEffect(() => {
         if (!oscillator) return;
@@ -30,7 +40,7 @@ const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
         );
     }, [toneModifier]);
 
-    return (
+    return withNotes ? (
         <div className="_note">
             <span style={{ color }} className="_note__tone">
                 ♬
@@ -43,7 +53,7 @@ const Note = ({ removeNote, modifier, color, audio, volume, toneModifier }) => {
                 +
             </button>
         </div>
-    );
+    ) : null;
 };
 
 Note.propTypes = {
@@ -54,6 +64,7 @@ Note.propTypes = {
     modifier: PropTypes.number.isRequired,
     removeNote: PropTypes.func.isRequired,
     volume: PropTypes.instanceOf(GainNode).isRequired,
+    toneModifier: PropTypes.number.isRequired,
 };
 
 export default Note;

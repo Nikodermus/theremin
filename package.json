@@ -1,6 +1,6 @@
 {
-    "name": "theremin",
-    "version": "1.0.0",
+    "name": "@nikodermus/react-theremin",
+    "version": "0.0.1",
     "description": "theremin React component",
     "main": "lib/index.js",
     "module": "es/index.js",

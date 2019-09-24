@@ -11,6 +11,7 @@
     "plugins": ["react", "jsx-a11y", "import"],
     "rules": {
         "no-unused-vars": "warn",
+        "react/no-array-index-key": "warn",
         "react/prop-types": "warn"
     }
 }

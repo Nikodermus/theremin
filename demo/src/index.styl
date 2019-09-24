@@ -1,3 +1,5 @@
+@import "../../src/styles/_common.styl"
+
 *
     box-sizing: border-box
     font-family: "Courier New", Courier, monospace
@@ -8,6 +10,11 @@
 
     &:hover
         transition: 0.3s all ease
+
+    &:focus
+    &::-moz-focus-outer
+        border: 0
+        outline: none
 
 body
     align-items: center
@@ -22,3 +29,43 @@ body
     &__board
         height: 40vmin
         width: 40vmin
+
+.watermark
+    background: rgba(black, 0.5)
+    border-radius: border-radius-MD
+    bottom: sizing-MD
+    color: white
+    font-size: sizing-XL
+    padding: sizing-SM
+    position: absolute
+    right: sizing-MD
+    text-decoration: none
+
+    &:hover
+        background: rgba(black, 0.7)
+
+.change-active
+    bottom: sizing-MD
+    left: sizing-MD
+    position: absolute
+
+    &__btn
+        background-color: blue
+        border-radius: border-radius-MD
+        border: 0
+        box-shadow: inner-shadow
+        color: blue-dark
+        font-size: sizing-XL
+        font-size: sizing-XL
+        margin-left: sizing-SM
+        margin-right: sizing-XL
+        outline: 0
+        padding: sizing-SM
+        text-transform: capitalize
+
+        &:hover
+            background-color: darken(blue, 20)
+            cursor: pointer
+
+        &--active
+            background-color: darken(blue, 20)

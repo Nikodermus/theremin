@@ -4,6 +4,11 @@
     min-height: rem(300)
     min-width: @min-height
 
+    &::after
+        padding-bottom: 100%
+        display: block
+        content: ""
+
 ._th-board
     background: blue
     border-radius: sizing-MD
@@ -16,5 +21,5 @@
     display: block
     height: 100%
     position: absolute
-    right: - sizing-LG
+    right: - sizing-XL
     width: sizing-MD

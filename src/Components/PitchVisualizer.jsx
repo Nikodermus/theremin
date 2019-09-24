@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import { setInRange } from '../utils/state';
 
 import '../styles/PitchVisualizer.styl';
 
 const PitchVisualizer = ({ tones, toneModifier, playing }) => {
-    const [tonesAmount, setTonesAmount] = useState(Array(tones).fill(''));
+    const tonesInRange = setInRange(tones, 10, 50);
+    const [tonesAmount, setTonesAmount] = useState(
+        Array(tonesInRange).fill('')
+    );
 
     useEffect(() => {
-        setTonesAmount(Array(tones).fill(''));
+        setTonesAmount(Array(tonesInRange).fill(''));
     }, [tones]);
 
     return (
@@ -21,12 +27,23 @@ const PitchVisualizer = ({ tones, toneModifier, playing }) => {
                                 ? '_pitch-visualizer__tone--active'
                                 : ''
                         }`}
-                        key={el}
+                        key={index}
                     />
                 );
             })}
         </div>
     );
+};
+
+PitchVisualizer.propTypes = {
+    tones: PropTypes.arrayOf(
+        PropTypes.shape({
+            color: PropTypes.string,
+            modifier: PropTypes.number,
+        })
+    ).isRequired,
+    toneModifier: PropTypes.number.isRequired,
+    playing: PropTypes.bool.isRequired,
 };
 
 export default PitchVisualizer;
