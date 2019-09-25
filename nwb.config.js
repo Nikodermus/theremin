@@ -1,6 +1,8 @@
+const fs = require('fs');
+const path = require('path');
+
 module.exports = ({ command }) => {
     const devRun = command.startsWith('serve');
-
     const config = {
         type: 'react-component',
         npm: {
@@ -17,6 +19,14 @@ module.exports = ({ command }) => {
         },
         webpack: {
             config(wpConfig) {
+                if (process.env.DEBUG) {
+                    fs.writeFile(
+                        'debug.log.json',
+                        JSON.stringify(wpConfig, null, 4),
+                        () => {}
+                    );
+                }
+
                 wpConfig.resolve.extensions = wpConfig.resolve.extensions || [
                     '.js',
                     '.jsx',
@@ -40,6 +50,8 @@ module.exports = ({ command }) => {
                     },
                     test: /\.jsx?$/,
                 });
+
+                wpConfig.output.path = path.resolve(__dirname, './docs');
 
                 if (devRun) {
                     wpConfig.entry = wpConfig.entry || [];
