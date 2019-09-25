@@ -1,9 +1,8 @@
-@import "../../src/styles/_common.styl"
+@import "./_common.styl"
 
 *
     box-sizing: border-box
     font-family: "Courier New", Courier, monospace
-    line-height: 1
     margin: 0
     padding: 0
     transition: 0.3s all ease
@@ -25,10 +24,12 @@ body
     overflow: hidden
     width: 100vw
 
-.th
-    &__board
-        height: 40vmin
-        width: 40vmin
+._th-theremin
+    background: blue
+    border-radius: sizing-MD
+    box-shadow: inner-shadow
+    height: 40vmin
+    width: 40vmin
 
 .watermark
     background: rgba(black, 0.5)
@@ -43,29 +44,3 @@ body
 
     &:hover
         background: rgba(black, 0.7)
-
-.change-active
-    bottom: sizing-MD
-    left: sizing-MD
-    position: absolute
-
-    &__btn
-        background-color: blue
-        border-radius: border-radius-MD
-        border: 0
-        box-shadow: inner-shadow
-        color: blue-dark
-        font-size: sizing-XL
-        font-size: sizing-XL
-        margin-left: sizing-SM
-        margin-right: sizing-XL
-        outline: 0
-        padding: sizing-SM
-        text-transform: capitalize
-
-        &:hover
-            background-color: darken(blue, 20)
-            cursor: pointer
-
-        &--active
-            background-color: darken(blue, 20)
